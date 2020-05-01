@@ -1,5 +1,8 @@
 <?php
+require'conexao/conexao.php';
 include 'menu.php';
+$id =  $_GET['id'];
+
 
 ?>
 <!DOCTYPE html>
@@ -16,54 +19,53 @@ include 'menu.php';
 			<div class="col">
 				<div class="card shadow">
 					<div class="card-header border-1">
-						<h3 class="mb-0">Status do Cadastro de Usuário</h3>
+						<h3 class="mb-0">Editar Status Imóvel</h3>
 					</div>
 
 					<div class="container" style="margin-top: 10px">
-						<form action="./cadastros/inserir_usuario.php" method="POST">
+						<form action="/dashboard/cadastros/inserir_categoria.php" method="get">
 							<div class="row">
 								<div class="col-md-6">
+									<?php
+										$sql = "SELECT * FROM imovel where id_imovel = $id";
+										$busca = $conexao->query($sql);
+										 	
+										while($dados = mysqli_fetch_array($busca)){
+											$idimovel = $dados['id_imovel'];
+											$codigo = $dados['codigo_imovel'];
+
+									?>
+
 									<div class="form-group">
-										<label>Nome</label>
-										<input type="text" class="form-control form-control-alternative"  placeholder="Nome compelto" name="nome" required="" autofocus="" autocomplete="off">
+										<label>Código do Imóvel</label>
+										<input type="text" class="form-control form-control-alternative" value="<?php echo $codigo?>" id='codigo' name="codigo" readonly>
 									</div>
+										<?php } ?>
 								</div>
+
 								<div class="col-md-6">
 									<div class="form-group">
-										<label for="exampleFormControlSelect1">Nível do Usuário</label>
-										<select class="form-control form-control-alternative" id="exampleFormControlSelect1" name="nivel">
-											<option value="1">Gerente</option>
-											<option value="2">Vendedor</option>
-											<option value="3">Administrador</option>
-											<option value="4">Recepcionista</option>
-											
+										<label for="corretor">Corretor</label>
+										<select name="usuariol" id="usuario" class="form-control">
+											<option value="">Selecione</option>
+											<?php
+												$sql = "SELECT * FROM usuario";
+												$buscar = $conexao->query($sql);
+												var_dump($buscar);die();
+												while($dados = mysqli_fetch_array($buscar)){
+													$idusuario = $dados['id_usuario'];
+													$nome = $dados['nome_usuario'];
+													$usuario = $dados['usuario'];
+												
+
+											?>
+											<option value="usuario"><?php echo $usuario?></option>
+										<?php } ?>
 										</select>
 									</div>
 								</div>
 							</div>
-							<div class="row">
-								<div class="col-md-6">
-									<div class="form-group">
-										<label>Usuário</label>
-										<input type="text" class="form-control form-control-alternative"  placeholder="Usuário sem espaços" name="usuario" required="" autocomplete="off">
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="form-group">
-										<label>Senha</label>
-										<input type="password" class="form-control form-control-alternative"  placeholder="Mínimo 8 digitos" name="senha" required="" autocomplete="off">
-									</div>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-6">
-									<div class="form-group">
-										<label>E-Mail</label>
-										<input type="email" class="form-control form-control-alternative"  placeholder="Digite um e-mail válido" name="usuario" required="" autocomplete="off">
-									</div>
-								</div>
-								
-							</div>
+
 							<div class="card-footer py-4">
 								<div style="text-align: right">
 									<button type="submit" class="btn btn-primary">Cadastrar</button>

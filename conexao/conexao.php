@@ -1,21 +1,9 @@
 <?php
-
-$host = 'localhost';
-$base = 'bd_imobiliaria';
-$usuario = 'root';
-$senha = '';
-$conexao = mysqli_connect($host,$usuario,$senha,$base);
-
-
-/*
-try {
-  $conexao = new PDO('mysql:host=localhost;dbname=$base', $usuario, $senha);
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch(PDOException $e) {
-    echo 'ERROR: ' . $e->getMessage();
-}
-*/
-
-
+$servername = "localhost"; //padrão - server local
+$database = "dash1"; //alterar conforme o nome do seu banco de dados
+$username = "root"; //padrão - root
+$password = "";//senha de conexão do banco de dados.
+// Create connection
+$conexao = mysqli_connect($servername, $username, $password, $database);
 
 ?>
